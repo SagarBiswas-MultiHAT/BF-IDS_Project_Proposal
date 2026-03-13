@@ -1,6 +1,4 @@
-﻿# Project Proposal
-
-**Project Title:** BF-IDS: Behavioral Fingerprinting-Augmented Embedded Intrusion Detection System with Real-Time Dashboard
+﻿**Project Title:** BF-IDS: Behavioral Fingerprinting-Augmented Embedded Intrusion Detection System with Real-Time Dashboard
 
 **Course:** MICROPROCESSOR AND EMBEDDED SYSTEM
 
@@ -12,8 +10,28 @@
 
 **Semester:** 2025-2026, Spring
 
----
 
+<div align="right">
+
+<!-- [![Build / CI](https://img.shields.io/github/actions/workflow/status/SagarBiswas-MultiHAT/Raspi_Mini_IDS-Project_Proposal/ci.yml?branch=main&label=build)](https://github.com/SagarBiswas-MultiHAT/Raspi_Mini_IDS-Project_Proposal/actions/workflows/ci.yml)
+&nbsp;
+[![License: MIT](https://img.shields.io/github/license/SagarBiswas-MultiHAT/Raspi_Mini_IDS-Project_Proposal?label=license)](LICENSE)
+&nbsp;
+[![Open Issues](https://img.shields.io/github/issues/SagarBiswas-MultiHAT/Raspi_Mini_IDS-Project_Proposal?label=open%20issues)](https://github.com/SagarBiswas-MultiHAT/Raspi_Mini_IDS-Project_Proposal/issues)
+&nbsp;
+[![Closed Issues](https://img.shields.io/github/issues-closed/SagarBiswas-MultiHAT/Raspi_Mini_IDS-Project_Proposal?label=closed%20issues)](https://github.com/SagarBiswas-MultiHAT/Raspi_Mini_IDS-Project_Proposal/issues?q=is%3Aissue%20state%3Aclosed)
+&nbsp;
+[![Docs](https://img.shields.io/badge/docs-github%20pages-blue)](https://sagarbiswas-multihat.github.io/Raspi_Mini_IDS-Project_Proposal/) -->
+
+<a href="https://github.com/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal/ci.yml?branch=main&label=build" alt="Build / CI"></a>&nbsp;
+<a href="LICENSE"><img src="https://img.shields.io/github/license/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal?label=license" alt="License: MIT"></a>&nbsp;
+<a href="https://github.com/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal/issues"><img src="https://img.shields.io/github/issues/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal?label=open%20issues" alt="Open Issues"></a>&nbsp;
+<a href="https://github.com/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal/issues?q=is%3Aissue%20state%3Aclosed"><img src="https://img.shields.io/github/issues-closed/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal?label=closed%20issues" alt="Closed Issues"></a>&nbsp;
+<a href="https://sagarbiswas-multihat.github.io/BF-IDS-Project_Proposal/"><img src="https://img.shields.io/badge/docs-github%20pages-blue" alt="Docs"></a>
+
+</div>
+
+---
 ## 1. Executive Summary
 
 This project proposes a low-cost, practical, and novel **Behavioral Fingerprinting-Augmented Embedded Intrusion Detection System (BF-IDS)** built on a Raspberry Pi 4 with optional ESP32 satellite nodes. The core idea is simple: instead of only relying on fixed rules or known attack signatures, the system also learns the normal behavior of every device on the network and raises an alert when something starts acting differently than usual.
