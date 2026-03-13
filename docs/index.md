@@ -23,11 +23,11 @@
 &nbsp;
 [![Docs](https://img.shields.io/badge/docs-github%20pages-blue)](https://sagarbiswas-multihat.github.io/Raspi_Mini_IDS-Project_Proposal/) -->
 
-<a href="https://github.com/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal/ci.yml?branch=main&label=build" alt="Build / CI"></a>&nbsp;
-<a href="LICENSE"><img src="https://img.shields.io/github/license/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal?label=license" alt="License: MIT"></a>&nbsp;
-<a href="https://github.com/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal/issues"><img src="https://img.shields.io/github/issues/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal?label=open%20issues" alt="Open Issues"></a>&nbsp;
-<a href="https://github.com/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal/issues?q=is%3Aissue%20state%3Aclosed"><img src="https://img.shields.io/github/issues-closed/SagarBiswas-MultiHAT/BF-IDS-Project_Proposal?label=closed%20issues" alt="Closed Issues"></a>&nbsp;
-<a href="https://sagarbiswas-multihat.github.io/BF-IDS-Project_Proposal/"><img src="https://img.shields.io/badge/docs-github%20pages-blue" alt="Docs"></a>
+<a href="https://github.com/SagarBiswas-MultiHAT/BF-IDS_Project_Proposal/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/SagarBiswas-MultiHAT/BF-IDS_Project_Proposal/ci.yml?branch=main&label=build" alt="Build / CI"></a>&nbsp;
+<a href="LICENSE"><img src="https://img.shields.io/github/license/SagarBiswas-MultiHAT/BF-IDS_Project_Proposal?label=license" alt="License: MIT"></a>&nbsp;
+<a href="https://github.com/SagarBiswas-MultiHAT/BF-IDS_Project_Proposal/issues"><img src="https://img.shields.io/github/issues/SagarBiswas-MultiHAT/BF-IDS_Project_Proposal?label=open%20issues" alt="Open Issues"></a>&nbsp;
+<a href="https://github.com/SagarBiswas-MultiHAT/BF-IDS_Project_Proposal/issues?q=is%3Aissue%20state%3Aclosed"><img src="https://img.shields.io/github/issues-closed/SagarBiswas-MultiHAT/BF-IDS_Project_Proposal?label=closed%20issues" alt="Closed Issues"></a>&nbsp;
+<a href="https://sagarbiswas-multihat.github.io/BF-IDS_Project_Proposal/"><img src="https://img.shields.io/badge/docs-github%20pages-blue" alt="Docs"></a>
 
 </div>
 
