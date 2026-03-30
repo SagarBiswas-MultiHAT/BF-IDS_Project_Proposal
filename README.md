@@ -1,4 +1,4 @@
-# Project Proposal
+# BF-IDS Project Proposal
 
 **Project Title:** BF-IDS: Behavioral Fingerprinting-Augmented Embedded Intrusion Detection System with Real-Time Dashboard
 
@@ -29,6 +29,43 @@
 
 ---
 
+> **Status:** Proposal + design documentation. This repository contains the proposal text and diagrams (no BF-IDS implementation code yet).
+
+### Quick links
+
+- Docs (GitHub Pages): https://sagarbiswas-multihat.github.io/BF-IDS_Project_Proposal/
+- Original baseline proposal (Mini-IDS v1): `Mini-IDS_Personal_Project_Proposal.pdf` / `Mini-IDS_Personal_Project_Proposal.docx`
+- Diagrams: `docs/assets/`
+
+### Document versions (included in this repo)
+
+- **v1 — Mini-IDS (original draft):** Raspberry Pi IDS with rule-based + lightweight anomaly detection, dashboard, alerts, and basic firewall/GPIO response.
+- **v2 — BF-IDS (this document):** Adds per-device behavioral fingerprinting (Isolation Forest), optional ESP32 satellite nodes over MQTT, and expanded evaluation + diagrams.
+
+<details>
+<summary>Table of contents</summary>
+
+- [1. Executive Summary](#1-executive-summary)
+- [2. Objectives](#2-objectives)
+- [3. System Overview](#3-system-overview)
+- [4. Detection Design](#4-detection-design)
+- [5. Implementation Plan and Technologies](#5-implementation-plan-and-technologies)
+- [6. Testing and Evaluation](#6-testing-and-evaluation)
+- [7. Safety and Ethics](#7-safety-and-ethics)
+- [8. Deliverables](#8-deliverables)
+- [9. Timeline (8 Weeks)](#9-timeline-8-weeks)
+- [10. Risk Analysis and Mitigation](#10-risk-analysis-and-mitigation)
+- [11. Budget Estimate](#11-budget-estimate)
+- [12. Repository Layout](#12-repository-layout)
+- [13. Architecture Diagram](#13-architecture-diagram)
+- [14. Sequence Diagram](#14-sequence-diagram)
+- [15. Fingerprint Engine: Internal Design](#15-fingerprint-engine-internal-design)
+- [16. Limitations and Future Work](#16-limitations-and-future-work)
+- [17. Glossary (Important Terms)](#17-glossary-important-terms)
+- [18. Project Development Note](#18-project-development-note)
+
+</details>
+
 ## 1. Executive Summary
 
 This project proposes a low-cost, practical, and novel **Behavioral Fingerprinting-Augmented Embedded Intrusion Detection System (BF-IDS)** built on a Raspberry Pi 4 with optional ESP32 satellite nodes. The core idea is simple: instead of only relying on fixed rules or known attack signatures, the system also learns the normal behavior of every device on the network and raises an alert when something starts acting differently than usual.
@@ -37,7 +74,7 @@ Most existing IDS tools like Snort or Suricata work by matching traffic against 
 
 On top of that, the system supports distributed monitoring through ESP32 nodes that connect back to the Raspberry Pi master over MQTT. This makes it possible to monitor multiple network segments at once using cheap hardware.
 
-The system also captures network traffic in real time, sends alerts via Email and Telegram, automatically blocks malicious IPs using firewall rules, and shows everything through a web-based dashboard. The focus is on making a working, reproducible, and well-documented system that can be tested and evaluated properly.
+The proposed system is designed to capture network traffic in real time, send alerts via Email and Telegram, automatically block malicious IPs using firewall rules, and show everything through a web-based dashboard. The focus is on making a working, reproducible, and well-documented system that can be tested and evaluated properly.
 
 ---
 
@@ -275,6 +312,29 @@ No paid services are required. GeoLite2, Mosquitto MQTT broker, and all notifica
 
 ## 12. Repository Layout
 
+### Current repository contents (this proposal repository)
+
+```text
+BF-IDS_Project_Proposal/
+|
+|-- README.md
+|-- LICENSE
+|-- Mini-IDS_Personal_Project_Proposal.docx
+|-- Mini-IDS_Personal_Project_Proposal.pdf
+|-- docs/
+|   |-- index.md
+|   |-- assets/
+|       |-- architecture_diagram.png
+|       |-- fingerprint_engine_diagram.png
+|       |-- sequence_diagram_part1.png
+|       |-- sequence_diagram_part2.png
+|-- .github/
+|   |-- workflows/
+|       |-- ci.yml
+```
+
+### Planned implementation repository layout (future work)
+
 ```text
 bf-ids/
 |
@@ -399,7 +459,7 @@ Think of the system like a security office that watches over a whole building wi
 
 - **Front desk (NIC + libpcap capture thread):** The NIC runs in promiscuous mode, meaning it picks up all packets on the network, not just its own. The C-based capture thread grabs each packet the moment it arrives. It is written in C specifically because Python would be too slow for this part.
 
-- **Conveyor belt (lock-free ring buffer):** The captured packets are immediately pushed onto a ring buffer — a fast, shared memory structure that lets the C capture thread and the Python workers exchange data without stepping on each other. It is O(1), meaning it never slows down no matter how many packets come in.
+- **Conveyor belt (lock-free ring buffer):** The captured packets are immediately pushed onto a ring buffer — a fast, shared memory structure that lets the C capture thread and the Python workers exchange data without stepping on each other. It is designed for O(1) push/pop without locks; under sustained overload, the pipeline still needs a clear policy (drop, backpressure, or sampling) to avoid unbounded queueing.
 
 - **Records clerk (preprocessor + feature extractor):** A Python worker pulls packets off the buffer and extracts useful information — who sent it, where it was going, what protocol, how big it was, how often packets like this arrive. This becomes the input to all three detection engines.
 
@@ -428,7 +488,7 @@ This diagram shows what happens from the moment a packet arrives on the network 
 
 ### Diagram Summary
 
-- **Packet capture:** A packet arrives at the NIC. The libpcap capture thread grabs it immediately using an interrupt-driven approach. The packet is pushed into the ring buffer in O(1) time, then picked up by the Python preprocessor. If an ESP32 satellite node also detected something, the Node Manager injects that data into the same preprocessing pipeline.
+- **Packet capture:** A packet arrives at the NIC. The libpcap capture thread captures it in a low-latency loop and pushes it into the ring buffer in O(1) time, then it is picked up by the Python preprocessor. If an ESP32 satellite node also detected something, the Node Manager injects that data into the same preprocessing pipeline.
 
 - **Feature extraction:** The preprocessor sends the packet data to the Feature Extractor, which builds a feature snapshot for that device — size, protocol, destination, timing, entropy. The Feature Extractor also asks the Fingerprint Engine to load the trained Isolation Forest model for that device from the Model Store.
 
@@ -461,7 +521,7 @@ This diagram covers the management side of the system — what the admin can do,
 
 ---
 
-## 15. Fingerprint Engine — Internal Design
+## 15. Fingerprint Engine: Internal Design
 
 This diagram shows how the Behavioral Fingerprint Engine processes each device's traffic internally, including the learning phase for new devices and the deviation scoring phase for known devices.
 
@@ -476,7 +536,7 @@ The Fingerprint Engine works in two completely different modes depending on whet
 - **For a known device (profile already exists):**
   - The engine loads the trained Isolation Forest model from the Model Store using the device's MAC address as the key.
   - It scores the live feature vector against the trained profile.
-  - The deviation score ranges from 0.0 (perfectly normal) to 1.0 (highly anomalous).
+  - The deviation score is normalized for dashboarding (e.g., 0.0 = normal, 1.0 = highly anomalous); the exact calibration/thresholding is part of the evaluation and tuning plan.
   - If the score is above the HIGH threshold, the alert level is set to HIGH — this likely means the device is compromised or under active attack.
   - If the score is above the MEDIUM threshold but below HIGH, the alert level is set to MEDIUM — the behavior is unusual and needs a human to review it.
   - If the score is normal, the alert level stays NONE and the running profile statistics are updated using a sliding window so the model stays fresh.
@@ -516,7 +576,7 @@ The Fingerprint Engine works in two completely different modes depending on whet
 
 ---
 
-## 17. Quick Q/A (Important Terms)
+## 17. Glossary (Important Terms)
 
 #### ICMP Flood
 - **What:** An attack that sends a massive number of ICMP ping packets to overwhelm a target.
